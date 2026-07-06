@@ -51,7 +51,30 @@ const loginUser = async (req: Request, res: Response, next: NextFunction) => {
     });
   }
 };
+
+const refreshToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const token = req.cookies.refreshToken;
+  const { accessToken } = await authServices.refreshToken(token);
+
+  res.cookie("acessToken", accessToken, {
+    httpOnly: true,
+    secure: false,
+    sameSite: "none",
+    maxAge: 1000 * 60 * 60 * 24,
+  });
+
+  res.status(201).json({
+    success: true,
+    message: "user logged in succesfully",
+    data: { accessToken },
+  });
+};
 export const authController = {
   registerUser,
   loginUser,
+  refreshToken,
 };
