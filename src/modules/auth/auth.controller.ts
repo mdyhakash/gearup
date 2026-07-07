@@ -73,8 +73,30 @@ const refreshToken = async (
     data: { accessToken },
   });
 };
+
+const getMyProfile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const userId = req.user?.id as string;
+  const result = await authServices.getMyProfile(userId);
+  try {
+    res.status(201).json({
+      success: true,
+      message: "User profile fetched successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.send(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 export const authController = {
   registerUser,
   loginUser,
   refreshToken,
+  getMyProfile,
 };
