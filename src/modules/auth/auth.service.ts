@@ -4,9 +4,10 @@ import { IAuthUser } from "./auth.interface";
 import config from "../../config";
 import { jwtUtils } from "../../utils/jwt";
 import { JwtPayload, SignOptions } from "jsonwebtoken";
+import { Role } from "../../../generated/prisma/enums";
 
 const registerUser = async (payload: IAuthUser) => {
-  const { name, email, password, profilePhoto } = payload;
+  const { name, email, password,role, profilePhoto } = payload;
 
   //check user exits
   const isUserExists = await prisma.user.findUnique({
@@ -25,6 +26,7 @@ const registerUser = async (payload: IAuthUser) => {
       email,
       name,
       password: hashedPassword,
+      role,
       profile: {
         create: {
           profilePhoto,

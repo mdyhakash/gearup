@@ -67,7 +67,7 @@ const getMyProfile = catchAsync(
     const userId = req.user?.id as string;
     const result = await authServices.getMyProfile(userId);
     sendResponse(res, {
-      statusCode: httpStatus.CREATED,
+      statusCode: httpStatus.OK,
       message: "User profile fetched successfully",
       data: { result },
     });
