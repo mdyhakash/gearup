@@ -9,3 +9,10 @@ enum UserStatus{
     BLOCKED
 
 }
+
+enum GearCondition{
+    NEW
+    GOOD
+    FAIR
+    DAMAGED
+}

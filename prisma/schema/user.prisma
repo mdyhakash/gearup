@@ -10,6 +10,7 @@ model User{
     status UserStatus @default(ACTIVE)
 
     profile Profile?
+    gearItems GearItems[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
