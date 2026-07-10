@@ -60,6 +60,10 @@ const loginUser = async (payload: IAuthUser) => {
   if (!matchedPassowrd) {
     throw new Error("Invalid credintials");
   }
+
+  if (user.status === "BLOCKED") {
+    throw new Error("user is blocked");
+  }
   const jwtpayload = {
     id: user.id,
     name: user.name,
