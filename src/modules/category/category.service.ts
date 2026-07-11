@@ -36,9 +36,14 @@ const getCategoryById = async (id: string) => {
   }
   return category;
 };
-const updateCategory = async (id: string, payload: IUpdateCategory) => {
+const updateCategory = async (categoryId: string, payload: IUpdateCategory) => {
+  const category = await prisma.category.findUniqueOrThrow({
+    where: {
+      id: categoryId,
+    },
+  });
   const result = await prisma.category.update({
-    where: { id },
+    where: { id: categoryId },
     data: {
       ...payload,
     },
@@ -46,9 +51,14 @@ const updateCategory = async (id: string, payload: IUpdateCategory) => {
   return result;
 };
 
-const deleteCategory = async (id: string) => {
-  return prisma.category.delete({
-    where: { id },
+const deleteCategory = async (categoryId: string) => {
+  const category = await prisma.category.findUniqueOrThrow({
+    where: {
+      id: categoryId,
+    },
+  });
+  await prisma.category.delete({
+    where: { id: categoryId },
   });
 };
 export const categoryService = {

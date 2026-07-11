@@ -12,11 +12,11 @@ export interface ICreateGear {
 }
 export interface IUpdateGear {
   name?: string;
-  description: string;
+  description?: string;
   brand?: string;
-  dailyRate: number;
+  dailyRate?: number;
   image?: string;
-  stock: number;
-  condition: GearCondition;
+  stock?: number;
+  condition?: GearCondition;
   categoryId?: string;
 }

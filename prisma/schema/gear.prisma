@@ -15,7 +15,7 @@ model GearItems{
     stock Int
     
     condition GearCondition
-    isAvaiable Boolean @default(true)
+    isAvailable Boolean @default(true)
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
