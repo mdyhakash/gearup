@@ -21,17 +21,49 @@ const createGear = async (providerId: string, payload: ICreateGear) => {
   });
   return gear;
 };
-const updateGear = async (gearId: string, payload: IUpdateGear) => {
-  const gear = await prisma.gearItems.update({
+const updateGear = async (
+  gearId: string,
+  payload: IUpdateGear,
+  providerId: string,
+  isAdmin: boolean,
+) => {
+  const gear = await prisma.gearItems.findUniqueOrThrow({
+    where: {
+      id: gearId,
+    },
+  });
+  if (!isAdmin && gear.providerId !== providerId) {
+    throw new Error("You're not the owner of this item.");
+  }
+  const result = await prisma.gearItems.update({
     where: { id: gearId },
     data: {
       ...payload,
     },
+    include: {
+      provider: {
+        omit: {
+          password: true,
+        },
+      },
+    },
   });
-  return gear;
+  return result;
 };
-const deleteGear = async (gearId: string) => {
-  return prisma.gearItems.delete({
+const deleteGear = async (
+  gearId: string,
+  providerId: string,
+  isAdmin: boolean,
+) => {
+  const gear = await prisma.gearItems.findUniqueOrThrow({
+    where: {
+      id: gearId,
+    },
+  });
+  if (!isAdmin && gear.providerId !== providerId) {
+    throw new Error("You're not the owner of this item.");
+  }
+  await prisma.gearItems.delete({
     where: { id: gearId },
   });
 };
