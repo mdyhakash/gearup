@@ -39,8 +39,33 @@ const getGearById = catchAsync(
     });
   },
 );
+const updateGear = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const gearId = req.params.id;
+    const payload = req.body;
+    const gear = await gearServices.updateGear(gearId as string, payload);
+    sendResponse(res, {
+      statusCode: HttpStatus.CREATED,
+      message: "Gear item updated succesfully.",
+      data: gear,
+    });
+  },
+);
+const deleteGear = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const gearId = req.params.id;
+    const gear = await gearServices.deleteGear(gearId as string);
+    sendResponse(res, {
+      statusCode: HttpStatus.CREATED,
+      message: "Gear item deleted succesfully.",
+      data: gear,
+    });
+  },
+);
 export const gearController = {
   createGear,
+  updateGear,
+  deleteGear,
   getAllGear,
   getGearById,
 };

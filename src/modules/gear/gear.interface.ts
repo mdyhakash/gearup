@@ -10,3 +10,13 @@ export interface ICreateGear {
   condition: GearCondition;
   categoryId: string;
 }
+export interface IUpdateGear {
+  name?: string;
+  description: string;
+  brand?: string;
+  dailyRate: number;
+  image?: string;
+  stock: number;
+  condition: GearCondition;
+  categoryId?: string;
+}

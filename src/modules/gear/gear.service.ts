@@ -1,5 +1,5 @@
 import { prisma } from "../../lib/prisma";
-import { ICreateGear } from "./gear.interface";
+import { ICreateGear, IUpdateGear } from "./gear.interface";
 
 const createGear = async (providerId: string, payload: ICreateGear) => {
   const category = await prisma.category.findUnique({
@@ -21,7 +21,20 @@ const createGear = async (providerId: string, payload: ICreateGear) => {
   });
   return gear;
 };
-
+const updateGear = async (gearId: string, payload: IUpdateGear) => {
+  const gear = await prisma.gearItems.update({
+    where: { id: gearId },
+    data: {
+      ...payload,
+    },
+  });
+  return gear;
+};
+const deleteGear = async (gearId: string) => {
+  return prisma.gearItems.delete({
+    where: { id: gearId },
+  });
+};
 const getAllGear = async () => {
   const result = await prisma.gearItems.findMany({
     orderBy: {
@@ -52,6 +65,8 @@ const getGearById = async (gearId: string) => {
 
 export const gearServices = {
   createGear,
+  updateGear,
+  deleteGear,
   getAllGear,
   getGearById,
 };
