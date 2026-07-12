@@ -3,8 +3,8 @@ import { Response } from "express";
 type TMeta = {
   page: number;
   limit: number;
-  totalPages: number;
-  totalGearCount: number;
+  totalPages?: number;
+  totalGearCount?: number;
 };
 type TResponseData<T> = {
   statusCode: number;

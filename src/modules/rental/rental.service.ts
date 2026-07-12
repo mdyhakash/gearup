@@ -1,5 +1,6 @@
+import { RentalStatus, Role } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
-import { ICreateRental } from "./rentel.interface";
+import { ICreateRental, IRentalQuery } from "./rentel.interface";
 
 const createRentalOrder = async (
   customerId: string,
@@ -80,6 +81,69 @@ const createRentalOrder = async (
   return result;
 };
 
+const getMyRentals = async (customerId: string, query: IRentalQuery) => {
+  const limit = query.limit ? Number(query.limit) : 10;
+  const page = query.page ? Number(query.page) : 1;
+  const skip = (page - 1) * limit;
+
+  const where = {
+    customerId,
+    ...(query.status && { status: query.status as RentalStatus }),
+  };
+
+  const result = await prisma.rentalOrder.findMany({
+    where,
+    take: limit,
+    skip,
+    orderBy: { createdAt: "desc" },
+    include: {
+      items: {
+        include: { gearItem: true },
+      },
+    },
+  });
+  const total = await prisma.rentalOrder.count({ where });
+  return {
+    data: result,
+    meta: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+};
+
+const getRentalById = async (rentalId: string, userId: string, role: Role) => {
+  const rentalOrder = await prisma.rentalOrder.findUnique({
+    where: { id: rentalId },
+    include: {
+      items: {
+        include: { gearItem: true },
+      },
+      payments: true,
+      customer: {
+        omit: { password: true },
+      },
+    },
+  });
+  if (!rentalOrder) {
+    throw new Error("Rental order not found.");
+  }
+  const isOwner = rentalOrder.customerId === userId;
+  const isProvider = rentalOrder.items.some(
+    (item) => item.gearItem.providerId === userId,
+  );
+  const isAdmin = role === Role.ADMIN;
+  if (!isOwner && !isProvider && !isAdmin) {
+    throw new Error("You don't have permission to view this rental order.");
+  }
+
+  return rentalOrder;
+};
+
 export const rentalService = {
   createRentalOrder,
+  getMyRentals,
+  getRentalById,
 };

@@ -8,3 +8,9 @@ export interface ICreateRental {
   endDate: string;
   items: IRentalItem[];
 }
+
+export interface IRentalQuery {
+  status?: string;
+  page?: string;
+  limit?: string;
+}
