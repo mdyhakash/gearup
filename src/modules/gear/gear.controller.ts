@@ -20,11 +20,13 @@ const createGear = catchAsync(
 
 const getAllGear = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const gear = await gearServices.getAllGear();
+    const query = req.query;
+    const gear = await gearServices.getAllGear(query);
     sendResponse(res, {
       statusCode: HttpStatus.CREATED,
       message: "Gear item fetched succesfully.",
-      data: gear,
+      data: gear.data,
+      meta: gear.meta,
     });
   },
 );

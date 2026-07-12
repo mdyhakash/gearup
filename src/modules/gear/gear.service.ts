@@ -1,5 +1,6 @@
+import { GearItemsWhereInput } from "../../../generated/prisma/models";
 import { prisma } from "../../lib/prisma";
-import { ICreateGear, IUpdateGear } from "./gear.interface";
+import { ICreateGear, IGearQuery, IUpdateGear } from "./gear.interface";
 
 const createGear = async (providerId: string, payload: ICreateGear) => {
   const category = await prisma.category.findUnique({
@@ -67,13 +68,109 @@ const deleteGear = async (
     where: { id: gearId },
   });
 };
-const getAllGear = async () => {
+const getAllGear = async (query: IGearQuery) => {
+  const limit = query.limit ? Number(query.limit) : 10;
+  const page = query.page ? Number(query.page) : 1;
+  const skip = (page - 1) * limit;
+  const sortBy = query.sortBy ? query.sortBy : "createdAt";
+  const sortOrder = query.sortOrder ? query.sortOrder : "desc";
+
+  const andConditions: GearItemsWhereInput[] = [];
+
+  if (query.searchTerm) {
+    andConditions.push({
+      OR: [
+        {
+          name: {
+            contains: query.searchTerm,
+            mode: "insensitive",
+          },
+        },
+        {
+          description: {
+            contains: query.searchTerm,
+            mode: "insensitive",
+          },
+        },
+        {
+          brand: {
+            contains: query.searchTerm,
+            mode: "insensitive",
+          },
+        },
+      ],
+    });
+  }
+
+  if (query.categoryId) {
+    andConditions.push({
+      categoryId: query.categoryId,
+    });
+  }
+
+  if (query.brand) {
+    andConditions.push({
+      brand: {
+        contains: query.brand,
+        mode: "insensitive",
+      },
+    });
+  }
+
+  if (query.minPrice || query.maxPrice) {
+    andConditions.push({
+      dailyRate: {
+        gte: query.minPrice ? Number(query.minPrice) : undefined,
+        lte: query.maxPrice ? Number(query.maxPrice) : undefined,
+      },
+    });
+  }
+
+  if (query.condition) {
+    andConditions.push({
+      condition: query.condition,
+    });
+  }
+
+  if (query.isAvailable !== undefined) {
+    andConditions.push({
+      isAvailable: query.isAvailable,
+    });
+  }
+
   const result = await prisma.gearItems.findMany({
+    where: {
+      AND: andConditions,
+    },
+    take: limit,
+    skip: skip,
     orderBy: {
-      name: "asc",
+      [sortBy]: sortOrder,
+    },
+    include: {
+      provider: {
+        omit: {
+          password: true,
+        },
+      },
+      category: true,
     },
   });
-  return result;
+
+  const totalGearCount = await prisma.gearItems.count({
+    where: {
+      AND: andConditions,
+    },
+  });
+  return {
+    data: result,
+    meta: {
+      page,
+      limit,
+      totalGearCount,
+      totalPages: Math.ceil(totalGearCount / limit),
+    },
+  };
 };
 const getGearById = async (gearId: string) => {
   const gear = await prisma.gearItems.findUnique({
