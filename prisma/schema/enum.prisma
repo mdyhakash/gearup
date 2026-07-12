@@ -16,3 +16,18 @@ enum GearCondition{
     FAIR
     DAMAGED
 }
+
+enum RentalStatus{
+    PLACED
+    CONFIREMED
+    PAID
+    PICKED_UP
+    RETURNED
+    CANCELLED
+}
+
+enum PaymentStatus{
+    PENDING
+    COMPLETED
+    FAILED
+}
