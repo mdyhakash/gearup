@@ -15,3 +15,18 @@ router.patch(
 );
 
 export const rentalRoutes = router;
+
+//provider routes
+const providerRouter = Router();
+providerRouter.get(
+  "/",
+  auth(Role.PROVIDER),
+  rentalController.getProviderOrders,
+);
+providerRouter.patch(
+  "/:id",
+  auth(Role.PROVIDER, Role.ADMIN),
+  rentalController.updateOrderStatus,
+);
+
+export const providerOrderRoutes = providerRouter;

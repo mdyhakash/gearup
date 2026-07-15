@@ -169,10 +169,97 @@ const cancelRentalOrder = async (rentalId: string, customerId: string) => {
   });
   return result;
 };
+//get provider order
+const getProviderOrders = async (providerId: string, query: IRentalQuery) => {
+  const limit = query.limit ? Number(query.limit) : 10;
+  const page = query.page ? Number(query.page) : 1;
+  const skip = (page - 1) * limit;
 
+  const where = {
+    items: {
+      some: {
+        gearItem: {
+          providerId,
+        },
+      },
+    },
+    ...(query.status && { status: query.status as RentalStatus }),
+  };
+
+  const result = await prisma.rentalOrder.findMany({
+    where,
+    take: limit,
+    skip,
+    orderBy: { createdAt: "desc" },
+    include: {
+      items: {
+        include: { gearItem: true },
+      },
+      customer: {
+        omit: { password: true },
+      },
+    },
+  });
+  const total = await prisma.rentalOrder.count({ where });
+
+  return {
+    data: result,
+    meta: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+};
+
+const updateOrderStatus = async (
+  rentalId: string,
+  providerId: string,
+  isAdmin: boolean,
+  status: RentalStatus,
+) => {
+  const rentalOrder = await prisma.rentalOrder.findUnique({
+    where: { id: rentalId },
+    include: {
+      items: {
+        include: { gearItem: true },
+      },
+    },
+  });
+  if (!rentalOrder) {
+    throw new Error("Rental order not found");
+  }
+  const isProvider = rentalOrder.items.some(
+    (item) => item.gearItem.providerId === providerId,
+  );
+  if (!isAdmin && !isProvider) {
+    throw new Error("You're not the provider of this rental order.");
+  }
+  const result = await prisma.$transaction(async (tx) => {
+    if (status === RentalStatus.RETURNED) {
+      for (const item of rentalOrder.items) {
+        await tx.gearItems.update({
+          where: { id: item.gearItemId },
+          data: {
+            stock: { increment: item.quantity },
+          },
+        });
+      }
+    }
+    const updated = await tx.rentalOrder.update({
+      where: { id: rentalId },
+      data: { status },
+    });
+    return updated;
+  });
+  return result;
+};
 export const rentalService = {
   createRentalOrder,
   getMyRentals,
   getRentalById,
   cancelRentalOrder,
+  getProviderOrders,
+  updateOrderStatus,
 };
