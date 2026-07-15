@@ -142,8 +142,37 @@ const getRentalById = async (rentalId: string, userId: string, role: Role) => {
   return rentalOrder;
 };
 
+const cancelRentalOrder = async (rentalId: string, customerId: string) => {
+  const rentalOrder = await prisma.rentalOrder.findFirstOrThrow({
+    where: { id: rentalId },
+    include: { items: true },
+  });
+
+  if (rentalOrder.customerId !== customerId) {
+    throw new Error("You're not hte owner of this rental order.");
+  }
+  if (rentalOrder.status !== RentalStatus.PLACED) {
+    throw new Error("Only orders with PLACED status can be cancelled");
+  }
+  const result = await prisma.$transaction(async (tx) => {
+    for (const item of rentalOrder.items) {
+      await tx.gearItems.update({
+        where: { id: item.gearItemId },
+        data: { stock: { increment: item.quantity } },
+      });
+    }
+    const updated = await tx.rentalOrder.update({
+      where: { id: rentalId },
+      data: { status: RentalStatus.CANCELLED },
+    });
+    return updated;
+  });
+  return result;
+};
+
 export const rentalService = {
   createRentalOrder,
   getMyRentals,
   getRentalById,
+  cancelRentalOrder,
 };

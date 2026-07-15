@@ -8,6 +8,10 @@ const router = Router();
 router.post("/", auth(Role.CUSTOMER), rentalController.createRentalOrder);
 router.get("/", auth(Role.CUSTOMER), rentalController.getMyRentals);
 router.get("/:id", auth(), rentalController.getRentalById);
-
+router.patch(
+  "/:id/cancel",
+  auth(Role.CUSTOMER),
+  rentalController.cancelRentalOrder,
+);
 
 export const rentalRoutes = router;
