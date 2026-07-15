@@ -5,6 +5,7 @@ type TMeta = {
   limit: number;
   totalPages?: number;
   totalGearCount?: number;
+  total?: number;
 };
 type TResponseData<T> = {
   statusCode: number;

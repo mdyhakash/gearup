@@ -2,6 +2,12 @@ import { RentalStatus, Role } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import { ICreateRental, IRentalQuery } from "./rentel.interface";
 
+const validTransitions: Record<string, string[]> = {
+  PLACED: ["CONFIRMED", "CANCELLED"],
+  CONFIRMED: ["CANCELLED"],
+  PAID: ["PICKED_UP"],
+  PICKED_UP: ["RETURNED"],
+};
 const createRentalOrder = async (
   customerId: string,
   payload: ICreateRental,
@@ -17,8 +23,13 @@ const createRentalOrder = async (
   const start = new Date(startDate);
   const end = new Date(endDate);
 
-  const days =
-    Math.ceil(end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
+  if (start >= end) {
+    throw new Error("End date must be after start date.");
+  }
+
+  const days = Math.ceil(
+    (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24),
+  );
 
   const result = await prisma.$transaction(async (tx) => {
     let totalAmount = 0;
@@ -235,6 +246,13 @@ const updateOrderStatus = async (
   );
   if (!isAdmin && !isProvider) {
     throw new Error("You're not the provider of this rental order.");
+  }
+
+  const allowedNext = validTransitions[rentalOrder.status] || [];
+  if (!isAdmin && !allowedNext.includes(status)) {
+    throw new Error(
+      `Cannot move rental order from ${rentalOrder.status} to ${status}.`,
+    );
   }
   const result = await prisma.$transaction(async (tx) => {
     if (status === RentalStatus.RETURNED) {
