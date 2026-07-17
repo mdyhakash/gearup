@@ -23,8 +23,6 @@ GearUp is a backend REST API for a sports and outdoor equipment rental platform.
 
 > [View ERD on drawSql](https://drawsql.app/teams/mdyhakash/diagrams/gearup)
 
-![GearUp](ERD.jpg)
-
 ## 📂 Project Structure
 
 Flat modular structure — one resource = 4 files (`interface`, `service`, `controller`, `route`):
