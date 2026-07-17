@@ -6,6 +6,7 @@ type TMeta = {
   totalPages?: number;
   totalGearCount?: number;
   total?: number;
+  averageRating?: number;
 };
 type TResponseData<T> = {
   statusCode: number;
