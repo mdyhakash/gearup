@@ -23,7 +23,7 @@ const getAllGear = catchAsync(
     const query = req.query;
     const gear = await gearServices.getAllGear(query);
     sendResponse(res, {
-      statusCode: HttpStatus.CREATED,
+      statusCode: HttpStatus.OK,
       message: "Gear item fetched succesfully.",
       data: gear.data,
       meta: gear.meta,
@@ -35,7 +35,7 @@ const getGearById = catchAsync(
     const gearId = req.params.id;
     const gear = await gearServices.getGearById(gearId as string);
     sendResponse(res, {
-      statusCode: HttpStatus.CREATED,
+      statusCode: HttpStatus.OK,
       message: "Gear item fetched succesfully.",
       data: gear,
     });
@@ -54,7 +54,7 @@ const updateGear = catchAsync(
       isAdmin as boolean,
     );
     sendResponse(res, {
-      statusCode: HttpStatus.CREATED,
+      statusCode: HttpStatus.OK,
       message: "Gear item updated succesfully.",
       data: gear,
     });
@@ -71,7 +71,7 @@ const deleteGear = catchAsync(
       isAdmin as boolean,
     );
     sendResponse(res, {
-      statusCode: HttpStatus.CREATED,
+      statusCode: HttpStatus.OK,
       message: "Gear item deleted succesfully.",
       data: gear,
     });

@@ -19,7 +19,7 @@ enum GearCondition{
 
 enum RentalStatus{
     PLACED
-    CONFIREMED
+    CONFIRMED
     PAID
     PICKED_UP
     RETURNED

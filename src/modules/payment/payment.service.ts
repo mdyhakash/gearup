@@ -20,7 +20,7 @@ const initiatePayment = async (
 
   if (
     rentalOrder.status !== RentalStatus.PLACED &&
-    rentalOrder.status !== RentalStatus.CONFIREMED
+    rentalOrder.status !== RentalStatus.CONFIRMED
   ) {
     throw new Error("This rental order is not eligible for payment.");
   }

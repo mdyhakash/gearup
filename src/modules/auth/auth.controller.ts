@@ -35,7 +35,7 @@ const loginUser = catchAsync(
     });
 
     sendResponse(res, {
-      statusCode: httpStatus.CREATED,
+      statusCode: httpStatus.OK,
       message: "User logged in successfully",
       data: { accessToken, refreshToken },
     });
@@ -54,9 +54,9 @@ const refreshToken = catchAsync(
       maxAge: 1000 * 60 * 60 * 24,
     });
 
-    res.status(201).json({
-      success: true,
-      message: "user logged in succesfully",
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      message: "User logged in successfully",
       data: { accessToken },
     });
   },
