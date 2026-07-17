@@ -12,6 +12,7 @@ import {
   rentalRoutes,
 } from "./modules/rental/rental.route";
 import { paymentRoutes } from "./modules/payment/payment.router";
+import { reviewRoutes } from "./modules/review/review.route";
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use("/api/gear", gearRoutes);
 app.use("/api/rentals", rentalRoutes);
 app.use("/api/provider/orders", providerOrderRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/reviews", reviewRoutes);
 
 app.use(notFoundRoute);
 app.use(globalErrorHanlder);

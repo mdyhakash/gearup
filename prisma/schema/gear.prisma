@@ -18,6 +18,7 @@ model GearItems{
     isAvailable Boolean @default(true)
 
     rentalOrderItems RentalOrderItem[]
+    reviews Review[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
