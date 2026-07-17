@@ -22,6 +22,7 @@ GearUp is a backend REST API for a sports and outdoor equipment rental platform.
 ## ERD Diagram
 
 > [View ERD on drawSql](https://drawsql.app/teams/mdyhakash/diagrams/gearup)
+> ![GearUp](ERD.jpg)
 
 ## 📂 Project Structure
 
