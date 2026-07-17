@@ -76,7 +76,7 @@ Role is selected at registration (`role` field on `POST /api/auth/register`).
 ### 1. Clone & install
 
 ```bash
-git clone <your-repo-url>
+git clone <https://github.com/mdyhakash/gearup.git>
 cd gearup
 npm install
 ```
