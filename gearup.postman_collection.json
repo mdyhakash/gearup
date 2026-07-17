@@ -1,0 +1,783 @@
+{
+  "info": {
+    "_postman_id": "7119f721-c9e6-441e-981f-02afa6a5bdb7",
+    "name": "gearup",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55148432",
+    "_collection_link": "https://go.postman.co/collection/55148432-7119f721-c9e6-441e-981f-02afa6a5bdb7?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "auth",
+      "item": [
+        {
+          "name": "Register user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"yasin admin\",\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"12345\",\r\n    \"role\":\"ADMIN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"admin@gmail.com\",\r\n    \"password\":\"12345\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "My Profile",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\":\"yhakash@gmail.com\",\r\n    \"password\":\"12345\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/auth/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "gear",
+      "item": [
+        {
+          "name": "Create Gear",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Adidas Shoe\",\r\n  \"description\": \"Professional size 5 football for matches and training.\",\r\n  \"brand\": \"Adidas\",\r\n  \"dailyRate\": 100,\r\n  \"image\": \"https://example.com/adidas-football.jpg\",\r\n  \"stock\": 50,\r\n  \"condition\": \"NEW\",\r\n  \"categoryId\": \"9df4f837-c0b1-4042-876f-6c91d4dc933f\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/gear",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "gear"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all gear",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Canon EOS 80D\",\r\n  \"description\": \"DSLR camera for photography and videography\",\r\n  \"brand\": \"Canon\",\r\n  \"dailyRate\": 1200,\r\n  \"image\": \"https://example.com/camera.jpg\",\r\n  \"stock\": 5,\r\n  \"condition\": \"GOOD\",\r\n  \"categoryId\": \"5706ac05-a0ab-4181-89f5-d394ef1d56cd\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/gear",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "gear"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get gear by Id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Canon EOS 80D\",\r\n  \"description\": \"DSLR camera for photography and videography\",\r\n  \"brand\": \"Canon\",\r\n  \"dailyRate\": 1200,\r\n  \"image\": \"https://example.com/camera.jpg\",\r\n  \"stock\": 5,\r\n  \"condition\": \"GOOD\",\r\n  \"categoryId\": \"5706ac05-a0ab-4181-89f5-d394ef1d56cd\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/gear/81e2e742-cf4c-495a-9488-67d63bf4978c",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "gear",
+                "81e2e742-cf4c-495a-9488-67d63bf4978c"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Gear",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Canon EOS 80D\",\r\n  \"description\": \"DSLR camera for photography and videography\",\r\n  \"brand\": \"Canon\",\r\n  \"dailyRate\": 1200,\r\n  \"image\": \"https://example.com/camera.jpg\",\r\n  \"stock\": 5,\r\n  \"condition\": \"GOOD\",\r\n  \"categoryId\": \"5706ac05-a0ab-4181-89f5-d394ef1d56cd\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/gear/81e2e742-cf4c-495a-9488-67d63bf4978c",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "gear",
+                "81e2e742-cf4c-495a-9488-67d63bf4978c"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Gear",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Canon 90D\"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/gear/1cc371cc-a4c2-428d-af5b-f1dfc39fdd01",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "gear",
+                "1cc371cc-a4c2-428d-af5b-f1dfc39fdd01"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Category",
+      "item": [
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"mobile\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/categories",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get all Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/categories",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "categories"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Category by Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/categories/6cd7eea5-828e-4091-83fb-992bd02bd3af",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "categories",
+                "6cd7eea5-828e-4091-83fb-992bd02bd3af"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\":\"mobile phone\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/categories/6cd7eea5-828e-4091-83fb-992bd02bd3af",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "categories",
+                "6cd7eea5-828e-4091-83fb-992bd02bd3af"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete category",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/categories/6cd7eea5-828e-4091-83fb-992bd02bd3af",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "categories",
+                "6cd7eea5-828e-4091-83fb-992bd02bd3af"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Rental",
+      "item": [
+        {
+          "name": "Create Rental",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"startDate\": \"2026-07-20\",\r\n  \"endDate\": \"2026-07-23\",\r\n  \"items\": [\r\n    {\r\n      \"gearItemId\": \"81e2e742-cf4c-495a-9488-67d63bf4978c\",\r\n      \"quantity\": 2\r\n    },\r\n    {\r\n      \"gearItemId\": \"afbcf080-e54a-4b56-a210-f9b222302d99\",\r\n      \"quantity\": 5\r\n    }\r\n   \r\n  ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/rentals",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "rentals"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Rentals",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"startDate\": \"2026-07-20\",\r\n  \"endDate\": \"2026-07-23\",\r\n  \"items\": [\r\n    {\r\n      \"gearItemId\": \"81e2e742-cf4c-495a-9488-67d63bf4978c\",\r\n      \"quantity\": 2\r\n    },\r\n    {\r\n      \"gearItemId\": \"afbcf080-e54a-4b56-a210-f9b222302d99\",\r\n      \"quantity\": 5\r\n    }\r\n   \r\n  ]\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/rentals",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "rentals"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Rental by Id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"startDate\": \"2026-07-20\",\r\n  \"endDate\": \"2026-07-23\",\r\n  \"items\": [\r\n    {\r\n      \"gearItemId\": \"81e2e742-cf4c-495a-9488-67d63bf4978c\",\r\n      \"quantity\": 2\r\n    },\r\n    {\r\n      \"gearItemId\": \"afbcf080-e54a-4b56-a210-f9b222302d99\",\r\n      \"quantity\": 5\r\n    }\r\n   \r\n  ]\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/rentals/d22d63f1-cf40-411f-8e06-d63c953421a2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "rentals",
+                "d22d63f1-cf40-411f-8e06-d63c953421a2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Rental",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"startDate\": \"2026-07-20\",\r\n  \"endDate\": \"2026-07-23\",\r\n  \"items\": [\r\n    {\r\n      \"gearItemId\": \"81e2e742-cf4c-495a-9488-67d63bf4978c\",\r\n      \"quantity\": 2\r\n    },\r\n    {\r\n      \"gearItemId\": \"afbcf080-e54a-4b56-a210-f9b222302d99\",\r\n      \"quantity\": 5\r\n    }\r\n   \r\n  ]\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/rentals/d22d63f1-cf40-411f-8e06-d63c953421a2/cancel",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "rentals",
+                "d22d63f1-cf40-411f-8e06-d63c953421a2",
+                "cancel"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Providers",
+      "item": [
+        {
+          "name": "Update Order Status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"status\": \"RETURNED\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/provider/orders/d22d63f1-cf40-411f-8e06-d63c953421a2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "provider",
+                "orders",
+                "d22d63f1-cf40-411f-8e06-d63c953421a2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Provider Orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/provider/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "provider",
+                "orders"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payment",
+      "item": [
+        {
+          "name": "Create Payment",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"rentalOrderId\":\"d22d63f1-cf40-411f-8e06-d63c953421a2\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/payments/create",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "payments",
+                "create"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get My Payment",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/payments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "payments"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Reviews",
+      "item": [
+        {
+          "name": "Create Review",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"rentalOrderId\": \"d22d63f1-cf40-411f-8e06-d63c953421a2\",\r\n  \"gearItemId\": \"81e2e742-cf4c-495a-9488-67d63bf4978c\",\r\n  \"rating\": 5,\r\n  \"comment\": \"Good\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/reviews",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "reviews"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "My Reviews",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"rentalOrderId\": \"d22d63f1-cf40-411f-8e06-d63c953421a2\",\r\n  \"gearItemId\": \"81e2e742-cf4c-495a-9488-67d63bf4978c\",\r\n  \"rating\": 5,\r\n  \"comment\": \"Good\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/reviews/my-reviews",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "reviews",
+                "my-reviews"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Reviews By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/reviews/246b06cd-b46e-4737-89bc-ebbdbfa446f7",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "reviews",
+                "246b06cd-b46e-4737-89bc-ebbdbfa446f7"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/admin/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Gears",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/admin/gear",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "admin",
+                "gear"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Rentals",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5000/api/admin/rentals",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "admin",
+                "rentals"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update User By Id",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": \"BLOCKED\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/admin/users/363f2e3c-bacd-4110-82ee-7e1644b04227",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "admin",
+                "users",
+                "363f2e3c-bacd-4110-82ee-7e1644b04227"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
