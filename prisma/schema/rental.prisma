@@ -2,7 +2,7 @@ model RentalOrder{
     id String @id @default(uuid())
 
     customerId String
-    customer User @relation(fields: [customerId], references: [id])
+    customer User @relation(fields: [customerId], references: [id],onDelete: Cascade)
 
     startDate DateTime
     endDate DateTime
@@ -24,10 +24,10 @@ model RentalOrderItem{
     id String @id @default(uuid())
 
     rentalOrderId String
-    rentalOrder RentalOrder @relation(fields: [rentalOrderId], references: [id])
+    rentalOrder RentalOrder @relation(fields: [rentalOrderId], references: [id],onDelete: Cascade)
 
     gearItemId String
-    gearItem GearItems @relation(fields: [gearItemId], references: [id])
+    gearItem GearItems @relation(fields: [gearItemId], references: [id],onDelete: Cascade)
 
     quantity Int
     dailyRate Float

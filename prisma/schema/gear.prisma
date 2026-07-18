@@ -2,7 +2,7 @@ model GearItems{
     id String @id @default(uuid())
 
     providerId String
-    provider User @relation(fields: [providerId], references: [id])
+    provider User @relation(fields: [providerId], references: [id],onDelete: Cascade)
 
     categoryId String
     category Category @relation(fields: [categoryId], references: [id])
